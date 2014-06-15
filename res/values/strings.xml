@@ -6,5 +6,8 @@
     <string name="hello_world">Hello world!</string>
     <string name="hint_query">Enter Search Term</string>
     <string name="title_activity_image_display">ImageDisplayActivity</string>
+    <string name="title_activity_advanced_search">AdvancedSearchActivity</string>
+    <string name="tv_label_Adv_srch">Advanced search options</string>
+    <string name="tv_label_ImgSize">Image Size</string>
 
 </resources>

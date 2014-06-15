@@ -12,6 +12,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -19,7 +20,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.Toast;
-
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
 
@@ -51,6 +51,13 @@ ImageResultArrayAdapter imageAdapter;
 			}
 			
 		});
+	}
+	
+	public void onSettings(MenuItem mi){
+		Intent i = new Intent(this,AdvancedSearchActivity.class);
+		startActivity(i);
+		
+		
 	}
 
 	private void setupViews() {
