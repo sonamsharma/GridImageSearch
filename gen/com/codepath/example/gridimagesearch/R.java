@@ -38,7 +38,7 @@ public final class R {
         public static final int gvResults=0x7f09000d;
         public static final int ivResult=0x7f09000a;
         public static final int misettingBtn=0x7f09000f;
-        public static final int spColorFilter=0x7f090004;
+        public static final int spImageColor=0x7f090004;
         public static final int spImageSize=0x7f090002;
         public static final int spImageType=0x7f090006;
         public static final int tvAdvSearchOpt=0x7f090000;

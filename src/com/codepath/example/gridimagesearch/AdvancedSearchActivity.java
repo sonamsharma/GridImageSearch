@@ -2,16 +2,19 @@ package com.codepath.example.gridimagesearch;
 
 import android.os.Bundle;
 import android.app.Activity;
+import android.content.Intent;
 import android.view.Menu;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.Spinner;
 
 public class AdvancedSearchActivity extends Activity {
 	Spinner spinnerImageSize;
-	Spinner spinnerColorFilter;
+	Spinner spinnerImageColor;
 	Spinner spinnerImageType;
-	
+	EditText etSiteFilter;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -23,8 +26,9 @@ public class AdvancedSearchActivity extends Activity {
 	private void setupAdvViews() {
 		// TODO Auto-generated method stub
 		spinnerImageSize = (Spinner) findViewById(R.id.spImageSize);
-		spinnerColorFilter = (Spinner) findViewById(R.id.spColorFilter);
+		spinnerImageColor = (Spinner) findViewById(R.id.spImageColor);
 		spinnerImageType = (Spinner) findViewById(R.id.spImageType);
+		etSiteFilter = (EditText) findViewById(R.id.etSiteFilter);
 	}
 
 	private void viewSpinnerOptions() {
@@ -45,7 +49,7 @@ public class AdvancedSearchActivity extends Activity {
 		// Specify the layout to use when the list of choices appears
 		adapterForColor.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 		// Apply the adapter to the spinner
-		spinnerColorFilter.setAdapter(adapterForColor);
+		spinnerImageColor.setAdapter(adapterForColor);
 		
 		
 		// Create an ArrayAdapter using the string array and a default spinner layout
@@ -55,11 +59,36 @@ public class AdvancedSearchActivity extends Activity {
 		adapterForColor.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 		// Apply the adapter to the spinner
 		spinnerImageType.setAdapter(adapterForImgType);
+		
+		Intent i = getIntent();
+		AdvanceSettings settings = (AdvanceSettings) i.getSerializableExtra("previous");
+		if(settings != null){
+		//final AdvanceSettings sInstanceAdvSettings = new AdvanceSettings();
+		spinnerImageSize.setSelection(adapterForImageSize.getPosition(settings.getSize()));
+		spinnerImageColor.setSelection(adapterForColor.getPosition(settings.getColor()));
+		spinnerImageType.setSelection(adapterForImgType.getPosition(settings.getType()));
+		etSiteFilter.setText(settings.getSiteFilter());
+		}
+		
+		
 	}
 
 	public void onSave(View v) {
 		
+		/* sInstanceAdvSettings.setSize(spinnerImageSize.getSelectedItem().toString());
+		 sInstanceAdvSettings.setColor(spinnerImageColor.getSelectedItem().toString());
+		 sInstanceAdvSettings.setType(spinnerImageType.getSelectedItem().toString());
+		 sInstanceAdvSettings.setSiteFilter(etSiteFilter.getText().toString());
+		 */
 		  // closes the activity and returns to first screen
+		
+		AdvanceSettings settings = new AdvanceSettings(spinnerImageSize.getSelectedItem().toString(),
+													   spinnerImageColor.getSelectedItem().toString(), spinnerImageType.getSelectedItem().toString(),
+													   etSiteFilter.getText().toString()
+													  );
+		Intent i = new Intent(this, SearchActivity.class);
+		i.putExtra("filters", settings);
+		setResult(RESULT_OK, i);
 		  this.finish(); 
 		}
 

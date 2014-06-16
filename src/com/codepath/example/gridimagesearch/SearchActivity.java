@@ -29,6 +29,8 @@ Button btnSearch;
 GridView gvResults;
 ArrayList<ImageResult> imageResults = new ArrayList<ImageResult>();
 ImageResultArrayAdapter imageAdapter;
+AdvanceSettings settings;
+
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -55,9 +57,21 @@ ImageResultArrayAdapter imageAdapter;
 	
 	public void onSettings(MenuItem mi){
 		Intent i = new Intent(this,AdvancedSearchActivity.class);
-		startActivity(i);
+		if(settings != null){
+			 i.putExtra("previous", settings);
+		}
+		startActivityForResult(i, 123);
 		
 		
+	}
+	
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		if (resultCode == RESULT_OK) {
+			if (requestCode == 123) {
+				settings = (AdvanceSettings) data.getSerializableExtra("filters");
+				Toast.makeText(this, settings.toString(), Toast.LENGTH_LONG).show();
+			}
+		}
 	}
 
 	private void setupViews() {
@@ -69,10 +83,42 @@ ImageResultArrayAdapter imageAdapter;
 	
 	public void onImageSearch(View v){
 		String query = etQuery.getText().toString();
-		Toast.makeText(this, "Searching for " +query, Toast.LENGTH_SHORT).show();
 		AsyncHttpClient client = new AsyncHttpClient();
-;		client.get("https://ajax.googleapis.com/ajax/services/search/images?rsz=8&"+
-		"start=" +0+"&v=1.0&q="+ Uri.encode(query), new JsonHttpResponseHandler(){
+		String url = "https://ajax.googleapis.com/ajax/services/search/images?rsz=8&"+
+			"start=" +0+"&v=1.0&q="+ Uri.encode(query);
+		
+		String settingsFilter = new String();
+		if(settings != null){
+			settingsFilter = "&imgsz=";
+		
+			if(settings.getSize().equals("small")){
+				settingsFilter= settingsFilter+"icon";
+				
+			}
+			if(settings.getSize().equals("medium")){
+				settingsFilter= settingsFilter+"small";
+				
+			}
+			else if(settings.getSize().equals("large")){
+				settingsFilter= settingsFilter+"xxlarge";
+				
+			}
+			else if(settings.getSize().equals("x-large")){
+				settingsFilter= settingsFilter+"huge";
+				
+			}
+			else{
+					settingsFilter=settingsFilter+"small";
+			}
+			settingsFilter = settingsFilter + "&imgtype"+settings.getType()+ "&imgcolor="+
+							 settings.getColor() + "&as_sitesearch="+
+							 settings.getSiteFilter();
+							 
+			
+		}
+		
+		Toast.makeText(this, "Fetching images for : " + url + settingsFilter, Toast.LENGTH_LONG).show();
+;		client.get(url+settingsFilter, new JsonHttpResponseHandler(){
 		@Override
 		public void onSuccess(JSONObject response){
 			JSONArray imageJsonResults = null;

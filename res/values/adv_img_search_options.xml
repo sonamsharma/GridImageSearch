@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
    <string-array name="imageSize_array">
-        <item>icon</item>
         <item>small</item>
-        <item>xxlarge </item>
-        <item>huge</item>
+        <item>medium</item>
+        <item>large </item>
+        <item>x-huge</item>
     </string-array> 
     <string-array name="color_array">
         <item>black</item>
