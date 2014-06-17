@@ -98,12 +98,12 @@ public class SearchActivity extends Activity {
 		customLoadMoreDataFromApi(0);
 	}
 
-	public void customLoadMoreDataFromApi(int page) {
+	public void customLoadMoreDataFromApi(int totalItemCount) {
 		String query = etQuery.getText().toString();
 		AsyncHttpClient client = new AsyncHttpClient();
 		// Can use String.format
 		String url = "https://ajax.googleapis.com/ajax/services/search/images?rsz=8&"
-				+ "start=" + page + "&v=1.0&q=" + Uri.encode(query);
+				+ "start=" + totalItemCount + "&v=1.0&q=" + Uri.encode(query);
 
 		String settingsFilter = new String();// whats this? Use StringBuilder
 												// instead
