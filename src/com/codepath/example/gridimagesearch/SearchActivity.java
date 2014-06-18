@@ -7,7 +7,10 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -98,6 +101,14 @@ public class SearchActivity extends Activity {
 		customLoadMoreDataFromApi(0);
 	}
 
+	private Boolean isNetworkAvailable() {
+		ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+		NetworkInfo activeNetworkInfo = connectivityManager
+				.getActiveNetworkInfo();
+		return activeNetworkInfo != null
+				&& activeNetworkInfo.isConnectedOrConnecting();
+	}
+
 	public void customLoadMoreDataFromApi(int totalItemCount) {
 		String query = etQuery.getText().toString();
 		AsyncHttpClient client = new AsyncHttpClient();
@@ -139,6 +150,13 @@ public class SearchActivity extends Activity {
 
 		// Toast.makeText(this, "Fetching images for : " + url + settingsFilter,
 		// Toast.LENGTH_LONG).show();
+		if (!isNetworkAvailable()) {
+			Toast.makeText(this,
+					"Network not available.. Check Network connection",
+					Toast.LENGTH_LONG).show();
+			return;
+		}
+		Log.d("DEBUG", "I am not here");
 
 		client.get(url + settingsFilter, new JsonHttpResponseHandler() {
 			@Override

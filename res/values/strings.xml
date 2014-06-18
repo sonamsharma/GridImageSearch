@@ -9,5 +9,6 @@
     <string name="title_activity_advanced_search">AdvancedSearchActivity</string>
     <string name="tv_label_Adv_srch">Advanced search options</string>
     <string name="tv_label_ImgSize">Image Size</string>
+    <string name="btnLabel_search">Search</string>
 
 </resources>
