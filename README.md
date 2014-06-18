@@ -1,7 +1,7 @@
 GridImageSearch
 ===============
 
-Using google API search and coustomize the search results
+
 
 How many hours did it take to complete?
 15hours
