@@ -18,3 +18,5 @@ Subsequent searches will have any filters applied to the search results
 User can tap on any image in results to see the image full-screen
 User can scroll down “infinitely” to continue loading more image results (up to 8 pages)
 
+![gifwalkthrough](https://cloud.githubusercontent.com/assets/4516012/3308725/085eca42-f688-11e3-98f9-7811b2d9a8a3.gif)
+
